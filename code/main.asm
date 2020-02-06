@@ -22,6 +22,7 @@ Start:
 						; pins as digital I/O
 Main:
 	call	RotinaInicializacao
+	goto 	Main
 	
 RotinaInicializacao:
 	bcf 	STATUS, RP1
@@ -62,4 +63,13 @@ LedCountLoop:
 	goto	LedCountLoop		; no
 	clrf	PORTA		; yes
 	return
+	
+Delay_1s:
+	nop
+	return
+	
+Delay_200ms:
+	nop
+	return	
+	end
 	
