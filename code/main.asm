@@ -3,6 +3,8 @@ list p=16f887
 
 	cblock 0x20
 		led_cnt
+		cnt_1
+		cnt_2
 	endc
 
 	org		0x00	; reset vector
@@ -65,11 +67,30 @@ LedCountLoop:
 	return
 	
 Delay_1s:
-	nop
+	call	Delay_200ms
+	call	Delay_200ms
+	call	Delay_200ms
+	call	Delay_200ms
+	call	Delay_200ms
 	return
 	
-Delay_200ms:
+Delay_1ms:
+	movlw	.248
+	movwf	cnt_1
+Delay1:
 	nop
-	return	
+	decfsz	cnt_1, F	;decrement cnt_1
+	goto 	Delay1
+	return				; cnt equals 0
+
+Delay_200ms:
+	movlw 	.200
+	movwf	cnt_2
+Delay2:
+	call	Delay_1ms
+	decfsz	cnt_2, F
+	goto	Delay2	
+	return
+	
 	end
 	
